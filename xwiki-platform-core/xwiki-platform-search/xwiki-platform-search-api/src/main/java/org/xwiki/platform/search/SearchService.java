@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
- *
+/*
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
  *
@@ -19,24 +16,45 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
--->
+ */
+package org.xwiki.platform.search;
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.xwiki.platform</groupId>
-    <artifactId>xwiki-platform-core</artifactId>
-    <version>4.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>xwiki-platform-search</artifactId>
-  <name>XWiki Platform - Search - Parent POM</name>
-  <packaging>pom</packaging>
-  <description>XWiki Platform - Search - Parent POM</description>
-  <modules>
-    <module>xwiki-platform-search-lucene</module>
-    <module>xwiki-platform-search-ui</module>
-    <module>xwiki-platform-search-api</module>
-    <module>xwiki-platform-search-solr</module>
-  </modules>
-</project>
+import java.util.List;
+
+import org.xwiki.component.annotation.ComponentRole;
+
+/**
+ * Search service.
+ * 
+ * @version $Id$
+ */
+@ComponentRole
+public interface SearchService
+{
+    /**
+     * Get the search backend.
+     * 
+     * @return search backend
+     */
+    String getBackend();
+
+    /**
+     * Index the documents.
+     */
+    void indexDocuments();
+
+    /**
+     * Reindex the docuements.
+     */
+    void reIndexDocuments();
+
+    /**
+     * Query the documents.
+     * 
+     * @param query - The query to search.
+     * @param qfvalues - qf values for all the fields passed on to edismax parser 
+     * @return list of documents
+     */
+    List<String> queryDocument(String query, String qfvalues);
+
+}
